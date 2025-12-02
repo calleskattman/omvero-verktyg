@@ -26,6 +26,9 @@ export default function RootLayout({
   return (
     <html lang="sv">
       <head>
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://omvero.se" />
+
         {/* Favicons & Icons – Google Lighthouse Optimized */}
         <link
           rel="icon"
@@ -77,6 +80,50 @@ export default function RootLayout({
                 page_path: window.location.pathname,
               });
             `,
+          }}
+        />
+
+        {/* Structured Data – WebSite */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Omvero – Verktygsportalen",
+              url: "https://omvero.se",
+              potentialAction: {
+                "@type": "SearchAction",
+                target:
+                  "https://omvero.se/alla-verktyg?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
+
+        {/* Structured Data – Breadcrumbs */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Hem",
+                  item: "https://omvero.se",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Alla verktyg",
+                  item: "https://omvero.se/alla-verktyg",
+                },
+              ],
+            }),
           }}
         />
       </head>

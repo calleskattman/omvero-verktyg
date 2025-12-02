@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Clean-param: 
+Sitemap: https://omvero.se/sitemap.xml
