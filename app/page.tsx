@@ -1,36 +1,41 @@
 // app/page.tsx
-import type { Metadata } from "next";
 import Link from "next/link";
 import { tools } from "@/config/tools";
-
-export const metadata: Metadata = {
-  title: "Smarta kalkylatorer och verktyg online",
-  description:
-    "Gratis kalkylatorer och verktyg för vardag, hälsa och ekonomi. Räkna ut BMI, kaloribehov, ROT-avdrag och mycket mer direkt i webbläsaren.",
-  alternates: {
-    canonical: "https://omvero.se",
-  },
-};
 
 export default function HomePage() {
   const featuredTools = tools.filter((t) => t.showOnHome);
 
   return (
     <main className="max-w-5xl mx-auto px-4 py-10 space-y-10">
+      {/* Hero / Intro */}
       <section className="space-y-4">
         <h1 className="text-3xl md:text-4xl font-bold">
-          Smarta verktyg direkt i webbläsaren
+          Smarta kalkylatorer online
         </h1>
         <p className="text-sm md:text-base text-slate-600 max-w-2xl">
-          Här hittar du praktiska kalkylatorer och verktyg för vardag, hälsa och
-          ekonomi. Helt gratis att använda.
+          Omvero samlar enkla, snabba och gratis kalkylatorer online för vardag,
+          hälsa och ekonomi. Allt direkt i webbläsaren – utan konto eller
+          krångel.
+        </p>
+        <p className="text-xs md:text-sm text-slate-500 max-w-2xl">
+          Börja med någon av våra populära räknare nedan eller gå till{" "}
+          <Link href="/alla-verktyg" className="underline">
+            alla verktyg
+          </Link>{" "}
+          för en fullständig översikt.
         </p>
       </section>
 
+      {/* Utvalda verktyg */}
       {featuredTools.length > 0 && (
-        <section className="space-y-4">
+        <section className="space-y-4" aria-labelledby="featured-tools-heading">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold">Utvalda verktyg</h2>
+            <h2
+              id="featured-tools-heading"
+              className="text-xl font-semibold"
+            >
+              Populära kalkylatorer
+            </h2>
             <Link href="/alla-verktyg" className="text-sm underline">
               Visa alla verktyg
             </Link>
@@ -53,12 +58,36 @@ export default function HomePage() {
         </section>
       )}
 
-      <section className="space-y-2">
-        <h2 className="text-lg font-semibold">Alla verktyg</h2>
-        <p className="text-sm text-slate-600">
-          Vi bygger löpande ut sidan med fler verktyg.
+      {/* Sektion: Om Omvero */}
+      <section className="space-y-3" aria-labelledby="about-omvero-heading">
+        <h2 id="about-omvero-heading" className="text-lg font-semibold">
+          Vad är Omvero?
+        </h2>
+        <p className="text-sm text-slate-600 max-w-2xl">
+          Omvero är en samlingsplats för smarta kalkylatorer online. Fokus
+          ligger på tydliga gränssnitt, begripliga resultat och verktyg som
+          fungerar lika bra i mobilen som på datorn.
         </p>
-        <Link href="/alla-verktyg" className="inline-flex text-sm underline">
+        <p className="text-sm text-slate-600 max-w-2xl">
+          Vi bygger löpande ut sidan med fler räknare – till exempel för
+          energiförbrukning, privatekonomi och olika vardagsberäkningar. Alla
+          verktyg är gratis att använda.
+        </p>
+      </section>
+
+      {/* Länk till alla verktyg */}
+      <section className="space-y-2" aria-labelledby="all-tools-heading">
+        <h2 id="all-tools-heading" className="text-lg font-semibold">
+          Alla verktyg på Omvero
+        </h2>
+        <p className="text-sm text-slate-600 max-w-2xl">
+          Här hittar du en samlad översikt över alla kalkylatorer på sajten,
+          uppdelade efter kategori.
+        </p>
+        <Link
+          href="/alla-verktyg"
+          className="inline-flex text-sm underline font-medium"
+        >
           Gå till alla verktyg
         </Link>
       </section>
