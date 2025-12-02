@@ -1,6 +1,16 @@
 // app/alla-verktyg/page.tsx
+import type { Metadata } from "next";
 import Link from "next/link";
 import { tools } from "@/config/tools";
+
+export const metadata: Metadata = {
+  title: "Alla verktyg",
+  description:
+    "Översikt över alla kalkylatorer och verktyg på Omvero – Verktygsportalen. Hitta snabbt rätt verktyg för hälsa, ekonomi och vardag.",
+  alternates: {
+    canonical: "https://omvero.se/alla-verktyg",
+  },
+};
 
 const categoryLabels: Record<string, string> = {
   halsa: "Hälsa",

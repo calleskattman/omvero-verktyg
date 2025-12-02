@@ -1,40 +1,52 @@
+// app/bmi-raknare/page.tsx
+import type { Metadata } from "next";
 import Script from "next/script";
 import { ToolLayout } from "@/components/ToolLayout";
 import BmiTool from "@/components/tools/BmiTool";
+
+// SEO-metadata för BMI-räknaren
+export const metadata: Metadata = {
+  title: "BMI-räknare – räkna ut ditt BMI",
+  description:
+    "Räkna ut ditt BMI (Body Mass Index) med längd och vikt. Få en enkel indikation på om du hamnar i undervikt, normalvikt, övervikt eller fetma.",
+  alternates: {
+    canonical: "https://omvero.se/bmi-raknare",
+  },
+};
 
 // FAQ-schema för Google (måste spegla FAQ-texten på sidan)
 const bmiFaqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [
+  mainEntity: [
     {
       "@type": "Question",
-      "name": "Vad är BMI?",
-      "acceptedAnswer": {
+      name: "Vad är BMI?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text":
-          "BMI (Body Mass Index) är ett mått som beräknas utifrån längd och vikt. Det används ofta som en enkel indikator på undervikt, normalvikt, övervikt eller fetma, men tar inte hänsyn till faktorer som muskelmassa och kroppssammansättning."
-      }
+        text:
+          "BMI (Body Mass Index) är ett mått som beräknas utifrån längd och vikt. Det används ofta som en enkel indikator på undervikt, normalvikt, övervikt eller fetma, men tar inte hänsyn till faktorer som muskelmassa och kroppssammansättning.",
+      },
     },
     {
       "@type": "Question",
-      "name": "Vilka enheter används för BMI-beräkningen?",
-      "acceptedAnswer": {
+      name: "Vilka enheter används för BMI-beräkningen?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text":
-          "I den här räknaren anger du vikt i kilo och längd i centimeter. Kalkylatorn omvandlar längden till meter och beräknar sedan BMI enligt formeln kg/m²."
-      }
+        text:
+          "I den här räknaren anger du vikt i kilo och längd i centimeter. Kalkylatorn omvandlar längden till meter och beräknar sedan BMI enligt formeln kg/m².",
+      },
     },
     {
       "@type": "Question",
-      "name": "Räcker BMI för att bedöma hälsa?",
-      "acceptedAnswer": {
+      name: "Räcker BMI för att bedöma hälsa?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text":
-          "Nej, BMI är bara en grov uppskattning. Det säger inget om kroppssammansättning, muskelmassa, fettfördelning eller andra viktiga hälsoparametrar. Vid oro över vikt eller hälsa bör du kontakta vården för en individuell bedömning."
-      }
-    }
-  ]
+        text:
+          "Nej, BMI är bara en grov uppskattning. Det säger inget om kroppssammansättning, muskelmassa, fettfördelning eller andra viktiga hälsoparametrar. Vid oro över vikt eller hälsa bör du kontakta vården för en individuell bedömning.",
+      },
+    },
+  ],
 };
 
 export default function BmiRaknarePage() {
@@ -75,10 +87,10 @@ export default function BmiRaknarePage() {
               dina värden för längd och vikt och räknar automatiskt ut ditt BMI.
             </p>
             <p className="text-sm text-slate-700">
-              Resultatet jämförs sedan med vanliga BMI-intervall, som ofta används
-              för att klassificera undervikt, normalvikt, övervikt och fetma. Tänk
-              på att BMI är en förenklad modell och inte ger en fullständig bild
-              av din hälsa.
+              Resultatet jämförs sedan med vanliga BMI-intervall, som ofta
+              används för att klassificera undervikt, normalvikt, övervikt och
+              fetma. Tänk på att BMI är en förenklad modell och inte ger en
+              fullständig bild av din hälsa.
             </p>
           </section>
 
@@ -88,9 +100,9 @@ export default function BmiRaknarePage() {
               Exempel
             </h2>
             <p className="text-sm text-slate-700">
-              Om du väger 72 kg och är 180 cm lång beräknas ditt BMI som
-              72 / (1,80 × 1,80) ≈ 22,2. Det ligger inom intervallet för normalvikt enligt
-              vanliga BMI-gränser.
+              Om du väger 72 kg och är 180 cm lång beräknas ditt BMI som 72 / (1
+              ,80 × 1,80) ≈ 22,2. Det ligger inom intervallet för normalvikt
+              enligt vanliga BMI-gränser.
             </p>
           </section>
 
@@ -105,9 +117,9 @@ export default function BmiRaknarePage() {
                   Kan BMI användas för alla?
                 </h3>
                 <p>
-                  BMI lämpar sig sämre för till exempel barn, äldre, personer med
-                  mycket muskelmassa eller vid vissa sjukdomstillstånd. I dessa fall
-                  kan andra mätmetoder vara mer relevanta.
+                  BMI lämpar sig sämre för till exempel barn, äldre, personer
+                  med mycket muskelmassa eller vid vissa sjukdomstillstånd. I
+                  dessa fall kan andra mätmetoder vara mer relevanta.
                 </p>
               </article>
 
@@ -116,9 +128,9 @@ export default function BmiRaknarePage() {
                   Ska jag ändra mina vanor enbart utifrån BMI?
                 </h3>
                 <p>
-                  Nej, ta alltid hänsyn till helheten. Om du är orolig för din vikt
-                  eller hälsa är det bäst att prata med vården för att få en samlad
-                  bedömning och personliga råd.
+                  Nej, ta alltid hänsyn till helheten. Om du är orolig för din
+                  vikt eller hälsa är det bäst att prata med vården för att få
+                  en samlad bedömning och personliga råd.
                 </p>
               </article>
             </div>
@@ -133,8 +145,8 @@ export default function BmiRaknarePage() {
               Relaterade verktyg
             </h2>
             <p className="text-sm text-slate-700">
-              På sikt kan du hitta fler hälsorelaterade räknare här, till exempel
-              verktyg för energibehov eller träningsplanering.
+              På sikt kan du hitta fler hälsorelaterade räknare här, till
+              exempel verktyg för energibehov eller träningsplanering.
             </p>
           </section>
         </div>

@@ -1,6 +1,16 @@
 // app/page.tsx
+import type { Metadata } from "next";
 import Link from "next/link";
 import { tools } from "@/config/tools";
+
+export const metadata: Metadata = {
+  title: "Smarta kalkylatorer och verktyg online",
+  description:
+    "Gratis kalkylatorer och verktyg för vardag, hälsa och ekonomi. Räkna ut BMI, kaloribehov, ROT-avdrag och mycket mer direkt i webbläsaren.",
+  alternates: {
+    canonical: "https://omvero.se",
+  },
+};
 
 export default function HomePage() {
   const featuredTools = tools.filter((t) => t.showOnHome);
