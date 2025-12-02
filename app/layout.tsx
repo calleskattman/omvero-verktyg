@@ -11,11 +11,11 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Verktygsportalen – Kalkylatorer & verktyg online",
-    template: "%s | Verktygsportalen",
+    default: "Omvero – Smarta kalkylatorer online",
+    template: "%s | Omvero – Smarta kalkylatorer online",
   },
   description:
-    "Enkla onlineverktyg och kalkylatorer för t.ex. ROT-avdrag, moms och andra beräkningar. Snabba, mobilanpassade och gratis att använda.",
+    "Omvero erbjuder smarta, snabba och gratis kalkylatorer online för vardag, hälsa och ekonomi. Mobilanpassade och enkla att använda.",
 };
 
 export default function RootLayout({
@@ -90,7 +90,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Omvero – Verktygsportalen",
+              name: "Omvero – Smarta kalkylatorer online",
               url: "https://omvero.se",
               potentialAction: {
                 "@type": "SearchAction",
@@ -126,6 +126,21 @@ export default function RootLayout({
             }),
           }}
         />
+
+        {/* Structured Data – Organization */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Omvero",
+              alternateName: "Omvero – Smarta kalkylatorer online",
+              url: "https://omvero.se",
+              logo: "https://omvero.se/branding/omvero-logo-full.svg",
+            }),
+          }}
+        />
       </head>
 
       <body
@@ -138,10 +153,10 @@ export default function RootLayout({
               <Link href="/" className="flex items-center gap-2">
                 <img
                   src="/branding/omvero-logo-full.svg"
-                  alt="Verktygsportalens logotyp"
+                  alt="Omvero logotyp"
                   className="h-9 w-auto"
                 />
-                <span className="sr-only">Verktygsportalen</span>
+                <span className="sr-only">Omvero</span>
               </Link>
 
               <nav className="flex gap-4 text-sm text-slate-600">
@@ -165,8 +180,8 @@ export default function RootLayout({
             <div className="max-w-5xl mx-auto px-4 py-4 text-xs text-slate-500 flex flex-wrap justify-between gap-2">
               <span>© Omvero.</span>
               <span>
-                Beräkningar är vägledande – kontrollera alltid aktuella regler
-                hos myndighet eller Skatteverket.
+                Beräkningar är förenklade och vägledande – kontrollera alltid
+                resultat och aktuella regler innan du fattar beslut.
               </span>
             </div>
           </footer>
