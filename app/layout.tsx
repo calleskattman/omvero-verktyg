@@ -61,6 +61,24 @@ export default function RootLayout({
 
         {/* PWA manifest */}
         <link rel="manifest" href="/branding/site.webmanifest" />
+
+        {/* Google Analytics 4 */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-9VGD9WJJ1H"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-9VGD9WJJ1H', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
       </head>
 
       <body
