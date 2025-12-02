@@ -40,6 +40,29 @@ const rotFaqSchema = {
   ],
 };
 
+<Script
+  id="rot-tool-schema"
+  type="application/ld+json"
+  strategy="afterInteractive"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Calculator",
+      "name": "ROT-avdrag kalkylator",
+      "description": "Beräkna ROT-avdrag, arbetskostnad och totalbelopp efter skattereduktion.",
+      "url": "https://omvero.se/rot-kalkylator",
+      "applicationCategory": "BusinessApplication",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@type": "Organization",
+        "name": "Omvero Verktygsportalen",
+        "url": "https://omvero.se"
+      }
+    })
+  }}
+/>
+
+
 export default function RotKalkylatorPage() {
   return (
     <ToolLayout

@@ -49,6 +49,29 @@ const calorieFaqSchema = {
   ],
 };
 
+<Script
+  id="calorie-tool-schema"
+  type="application/ld+json"
+  strategy="afterInteractive"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Calculator",
+      "name": "Kaloriräknare (TDEE)",
+      "description": "Räkna ut ditt dagliga kaloribehov baserat på kön, ålder, längd, vikt och aktivitetsnivå.",
+      "url": "https://omvero.se/kaloriraknare",
+      "applicationCategory": "HealthApplication",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@type": "Organization",
+        "name": "Omvero Verktygsportalen",
+        "url": "https://omvero.se"
+      }
+    })
+  }}
+/>
+
+
 export default function KaloriraknarePage() {
   return (
     <ToolLayout

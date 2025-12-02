@@ -49,6 +49,29 @@ const bmiFaqSchema = {
   ],
 };
 
+<Script
+  id="bmi-tool-schema"
+  type="application/ld+json"
+  strategy="afterInteractive"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Calculator",
+      "name": "BMI-räknare",
+      "description": "Räkna ut ditt BMI (Body Mass Index) baserat på längd och vikt. Få en indikation på undervikt, normalvikt eller övervikt.",
+      "url": "https://omvero.se/bmi-raknare",
+      "applicationCategory": "HealthApplication",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@type": "Organization",
+        "name": "Omvero Verktygsportalen",
+        "url": "https://omvero.se"
+      }
+    })
+  }}
+/>
+
+
 export default function BmiRaknarePage() {
   return (
     <ToolLayout
