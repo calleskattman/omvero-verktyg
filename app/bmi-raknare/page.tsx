@@ -49,36 +49,41 @@ const bmiFaqSchema = {
   ],
 };
 
-<Script
-  id="bmi-tool-schema"
-  type="application/ld+json"
-  strategy="afterInteractive"
-  dangerouslySetInnerHTML={{
-    __html: JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Calculator",
-      "name": "BMI-räknare",
-      "description": "Räkna ut ditt BMI (Body Mass Index) baserat på längd och vikt. Få en indikation på undervikt, normalvikt eller övervikt.",
-      "url": "https://omvero.se/bmi-raknare",
-      "applicationCategory": "HealthApplication",
-      "isAccessibleForFree": true,
-      "publisher": {
-        "@type": "Organization",
-        "name": "Omvero Verktygsportalen",
-        "url": "https://omvero.se"
-      }
-    })
-  }}
-/>
-
+// Structured data för själva kalkylatorn
+const bmiToolSchema = {
+  "@context": "https://schema.org",
+  "@type": "Calculator",
+  name: "BMI-räknare",
+  description:
+    "Räkna ut ditt BMI (Body Mass Index) baserat på längd och vikt. Få en indikation på undervikt, normalvikt eller övervikt.",
+  url: "https://omvero.se/bmi-raknare",
+  applicationCategory: "HealthApplication",
+  isAccessibleForFree: true,
+  publisher: {
+    "@type": "Organization",
+    name: "Omvero Verktygsportalen",
+    url: "https://omvero.se",
+  },
+};
 
 export default function BmiRaknarePage() {
   return (
     <ToolLayout
       title="BMI-räknare"
       description="Räkna ut ditt BMI (Body Mass Index) med längd och vikt. Få en enkel indikation på om ditt BMI hamnar i undervikt, normalvikt, övervikt eller fetma."
+      category="halsa" // <-- detta ger Hem / Verktyg / Hälsa / BMI-räknare
     >
       <>
+        {/* Calculator-schema */}
+        <Script
+          id="bmi-tool-schema"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(bmiToolSchema),
+          }}
+        />
+
         {/* FAQ-schema för rich results i Google */}
         <Script
           id="bmi-faq-schema"

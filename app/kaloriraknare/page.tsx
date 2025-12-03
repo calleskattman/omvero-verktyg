@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 };
 
-// FAQ-schema för Google (måste spegla FAQ-texten på sidan)
+// FAQ-schema för Google
 const calorieFaqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -49,42 +49,49 @@ const calorieFaqSchema = {
   ],
 };
 
-<Script
-  id="calorie-tool-schema"
-  type="application/ld+json"
-  strategy="afterInteractive"
-  dangerouslySetInnerHTML={{
-    __html: JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Calculator",
-      "name": "Kaloriräknare (TDEE)",
-      "description": "Räkna ut ditt dagliga kaloribehov baserat på kön, ålder, längd, vikt och aktivitetsnivå.",
-      "url": "https://omvero.se/kaloriraknare",
-      "applicationCategory": "HealthApplication",
-      "isAccessibleForFree": true,
-      "publisher": {
-        "@type": "Organization",
-        "name": "Omvero Verktygsportalen",
-        "url": "https://omvero.se"
-      }
-    })
-  }}
-/>
-
+// Calculator-schema
+const calorieToolSchema = {
+  "@context": "https://schema.org",
+  "@type": "Calculator",
+  name: "Kaloriräknare (TDEE)",
+  description:
+    "Räkna ut ditt dagliga kaloribehov baserat på kön, ålder, längd, vikt och aktivitetsnivå.",
+  url: "https://omvero.se/kaloriraknare",
+  applicationCategory: "HealthApplication",
+  isAccessibleForFree: true,
+  publisher: {
+    "@type": "Organization",
+    name: "Omvero Verktygsportalen",
+    url: "https://omvero.se",
+  },
+};
 
 export default function KaloriraknarePage() {
   return (
     <ToolLayout
       title="Kaloriräknare (TDEE)"
       description="Räkna ut ditt dagliga kaloribehov (TDEE) baserat på kön, ålder, längd, vikt och aktivitetsnivå. Resultatet är en uppskattning av hur många kalorier du förbränner per dag."
+      category="halsa" // <-- Hälsa-kategori
     >
       <>
-        {/* FAQ-schema för rich results i Google */}
+        {/* Calculator-schema */}
+        <Script
+          id="calorie-tool-schema"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(calorieToolSchema),
+          }}
+        />
+
+        {/* FAQ-schema */}
         <Script
           id="calorie-faq-schema"
           type="application/ld+json"
           strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(calorieFaqSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(calorieFaqSchema),
+          }}
         />
 
         <div className="space-y-10">

@@ -1,48 +1,83 @@
-import type { ReactNode } from "react";
+// components/ToolLayout.tsx
+import React from "react";
+import Link from "next/link";
+import type { ToolCategory } from "@/config/tools";
 
 type ToolLayoutProps = {
   title: string;
   description?: string;
-  children: ReactNode;
+  category?: ToolCategory; // används för breadcrumbs
+  children: React.ReactNode;
 };
 
-export function ToolLayout({ title, description, children }: ToolLayoutProps) {
+const categoryLabels: Record<ToolCategory, string> = {
+  halsa: "Hälsa",
+  ekonomi: "Ekonomi",
+  konvertering: "Konvertering",
+  ovrigt: "Övrigt",
+};
+
+export function ToolLayout({
+  title,
+  description,
+  category,
+  children,
+}: ToolLayoutProps) {
   return (
-    <article
-      aria-labelledby="tool-heading"
-      className="w-full"
-    >
-      <header className="mb-6">
-        {/* Brödsmulor för SEO och tillgänglighet */}
-        <nav
-          aria-label="Brödsmulor"
-          className="mb-2 text-xs text-slate-500"
-        >
-          <a href="/" className="hover:text-slate-700">
-            Hem
-          </a>
-          <span className="mx-1">/</span>
-          <span>{title}</span>
-        </nav>
+    <main className="max-w-5xl mx-auto px-4 py-10 space-y-8">
+      <header className="space-y-3">
+        {/* Brödsmulor */}
+        <p className="text-xs text-slate-500">
+          <Link href="/">Hem</Link>
+          {category ? (
+            <>
+              {" "}
+              &nbsp;/&nbsp;
+              <Link href="/verktyg" className="underline">
+                Verktyg
+              </Link>
+              {" "}
+              &nbsp;/&nbsp;
+              <Link
+                href={`/verktyg/${category}`}
+                className="underline"
+              >
+                {categoryLabels[category]}
+              </Link>
+              {" "}
+              &nbsp;/&nbsp;
+              <span className="text-slate-900">{title}</span>
+            </>
+          ) : (
+            <>
+              {" "}
+              &nbsp;/&nbsp;
+              <span className="text-slate-900">{title}</span>
+            </>
+          )}
+        </p>
 
-        <h1
-          id="tool-heading"
-          className="text-3xl font-semibold tracking-tight mb-2"
-        >
-          {title}
-        </h1>
-
+        {/* Titel + intro */}
+        <h1 className="text-2xl md:text-3xl font-bold">{title}</h1>
         {description && (
-          <p className="text-base text-slate-600 max-w-2xl">
+          <p className="text-sm md:text-base text-slate-600 max-w-2xl leading-relaxed">
             {description}
           </p>
         )}
       </header>
 
-      {/* Huvudinnehåll för verktyget + förklarande sektioner */}
-      <section aria-label={`${title} – innehåll`} className="mb-12">
+      {/* Själva verktyget */}
+      <section className="border rounded-lg p-4 md:p-6 bg-white shadow-sm">
         {children}
       </section>
-    </article>
+
+      {/* Liten disclaimer */}
+      <section className="text-xs text-slate-500">
+        <p>
+          Beräkningar är förenklade och vägledande – kontrollera alltid resultat och aktuella
+          regler innan du fattar beslut.
+        </p>
+      </section>
+    </main>
   );
 }

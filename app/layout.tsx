@@ -94,8 +94,8 @@ export default function RootLayout({
               url: "https://omvero.se",
               potentialAction: {
                 "@type": "SearchAction",
-                target:
-                  "https://omvero.se/alla-verktyg?q={search_term_string}",
+                // Om/när du har sökfunktion kan den ligga på /verktyg
+                target: "https://omvero.se/verktyg?q={search_term_string}",
                 "query-input": "required name=search_term_string",
               },
             }),
@@ -119,8 +119,8 @@ export default function RootLayout({
                 {
                   "@type": "ListItem",
                   position: 2,
-                  name: "Alla verktyg",
-                  item: "https://omvero.se/alla-verktyg",
+                  name: "Verktyg",
+                  item: "https://omvero.se/verktyg",
                 },
               ],
             }),
@@ -163,8 +163,8 @@ export default function RootLayout({
                 <Link href="/" className="hover:text-slate-900">
                   Hem
                 </Link>
-                <Link href="/alla-verktyg" className="hover:text-slate-900">
-                  Alla verktyg
+                <Link href="/verktyg" className="hover:text-slate-900">
+                  Verktyg
                 </Link>
               </nav>
             </div>

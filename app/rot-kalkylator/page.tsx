@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 };
 
-// FAQ-schema för Google (måste spegla FAQ-texten på sidan)
+// FAQ-schema för Google
 const rotFaqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -40,37 +40,42 @@ const rotFaqSchema = {
   ],
 };
 
-<Script
-  id="rot-tool-schema"
-  type="application/ld+json"
-  strategy="afterInteractive"
-  dangerouslySetInnerHTML={{
-    __html: JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Calculator",
-      "name": "ROT-avdrag kalkylator",
-      "description": "Beräkna ROT-avdrag, arbetskostnad och totalbelopp efter skattereduktion.",
-      "url": "https://omvero.se/rot-kalkylator",
-      "applicationCategory": "BusinessApplication",
-      "isAccessibleForFree": true,
-      "publisher": {
-        "@type": "Organization",
-        "name": "Omvero Verktygsportalen",
-        "url": "https://omvero.se"
-      }
-    })
-  }}
-/>
-
+// Calculator-schema
+const rotToolSchema = {
+  "@context": "https://schema.org",
+  "@type": "Calculator",
+  name: "ROT-avdrag kalkylator",
+  description:
+    "Beräkna ROT-avdrag, arbetskostnad och totalbelopp efter skattereduktion.",
+  url: "https://omvero.se/rot-kalkylator",
+  applicationCategory: "BusinessApplication",
+  isAccessibleForFree: true,
+  publisher: {
+    "@type": "Organization",
+    name: "Omvero Verktygsportalen",
+    url: "https://omvero.se",
+  },
+};
 
 export default function RotKalkylatorPage() {
   return (
     <ToolLayout
       title="ROT-avdrag kalkylator"
       description="Räkna ut ROT-avdrag, total kostnad och vad kunden betalar efter avdrag. Anpassad för svenska ROT-regler."
+      category="ekonomi" // <-- Ekonomi-kategori
     >
       <>
-        {/* FAQ-schema för rich results i Google */}
+        {/* Calculator-schema */}
+        <Script
+          id="rot-tool-schema"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(rotToolSchema),
+          }}
+        />
+
+        {/* FAQ-schema */}
         <Script
           id="rot-faq-schema"
           type="application/ld+json"
@@ -89,7 +94,10 @@ export default function RotKalkylatorPage() {
 
           {/* Förklaring */}
           <section aria-labelledby="rot-hur-fungerar-rubrik">
-            <h2 className="text-xl font-semibold mb-2" id="rot-hur-fungerar-rubrik">
+            <h2
+              className="text-xl font-semibold mb-2"
+              id="rot-hur-fungerar-rubrik"
+            >
               Hur fungerar ROT-avdraget?
             </h2>
             <p className="text-sm text-slate-700 mb-2">
@@ -118,7 +126,7 @@ export default function RotKalkylatorPage() {
             </p>
           </section>
 
-          {/* FAQ för just ROT */}
+          {/* FAQ */}
           <section aria-labelledby="rot-faq-rubrik">
             <h2 className="text-xl font-semibold mb-3" id="rot-faq-rubrik">
               Vanliga frågor om ROT-avdrag
@@ -147,9 +155,12 @@ export default function RotKalkylatorPage() {
             </div>
           </section>
 
-          {/* Relaterade verktyg – fylls på med riktiga länkar när vi har fler */}
+          {/* Relaterade verktyg */}
           <section aria-labelledby="rot-relaterade-rubrik">
-            <h2 className="text-xl font-semibold mb-2" id="rot-relaterade-rubrik">
+            <h2
+              className="text-xl font-semibold mb-2"
+              id="rot-relaterade-rubrik"
+            >
               Relaterade verktyg
             </h2>
             <p className="text-sm text-slate-700">

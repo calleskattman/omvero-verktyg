@@ -3,11 +3,9 @@
 import { useState } from "react";
 
 type PriceMode = "inklusive" | "exklusive";
-type Direction = "forward" | "backward";
 
 export default function RotTool() {
   const [deductionPercent, setDeductionPercent] = useState<30 | 50>(30);
-  const [direction, setDirection] = useState<Direction>("forward");
   const [priceMode, setPriceMode] = useState<PriceMode>("inklusive");
 
   const [workCost, setWorkCost] = useState("");
@@ -66,42 +64,18 @@ export default function RotTool() {
           </div>
         </section>
 
-        {/* Beräkningsriktning */}
+        {/* Beräkningsriktning – förenklad */}
         <section>
-          <h3 className="font-semibold mb-2 text-slate-900">Beräkningsriktning</h3>
-          <div className="flex gap-3">
-            <button
-              type="button"
-              onClick={() => setDirection("forward")}
-              className={`flex-1 rounded-full border px-3 py-2 text-sm transition ${
-                direction === "forward"
-                  ? "bg-slate-900 text-white border-slate-900 shadow-sm"
-                  : "bg-white text-slate-700 border-slate-300 hover:border-slate-400"
-              }`}
-            >
-              Framåt
-              <span className="block text-xs opacity-80">
-                Från kostnader till slutpris
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setDirection("backward")}
-              className={`flex-1 rounded-full border px-3 py-2 text-sm transition ${
-                direction === "backward"
-                  ? "bg-slate-900 text-white border-slate-900 shadow-sm"
-                  : "bg-white text-slate-700 border-slate-300 hover:border-slate-400"
-              }`}
-            >
-              Bakåt
-              <span className="block text-xs opacity-80">
-                Från slutpris till kostnader
-              </span>
-            </button>
-          </div>
-          <p className="text-xs text-slate-500 mt-1">
-            Just nu beräknar verktyget alltid från kostnader till slutpris
-            (framåt). Bakåt-läget är bara en visuell inställning.
+          <h3 className="font-semibold mb-2 text-slate-900">
+            Beräkningsriktning
+          </h3>
+          <p className="text-sm text-slate-700">
+            Verktyget beräknar alltid priset{" "}
+            <span className="font-semibold">
+              från kostnader till slutpris efter ROT
+            </span>
+            . Du fyller i arbetskostnad, material och övriga kostnader – sedan
+            räknas ROT-avdraget och slutpriset ut automatiskt.
           </p>
         </section>
 
