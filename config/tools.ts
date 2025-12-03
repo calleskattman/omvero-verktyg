@@ -17,6 +17,7 @@ import RutTool from "@/components/tools/RutTool";
 import MomsTool from "@/components/tools/MomsTool";
 import RantaPaRantaTool from "@/components/tools/RantaPaRantaTool";
 import ElprisTool from "@/components/tools/ElprisTool";
+import { BolanekalkylatorTool } from "@/components/tools/BolanekalkylatorTool";
 
 
 // 🟧 KONVERTERING → (kommer senare)
@@ -134,6 +135,15 @@ export const tools: Tool[] = [
     component: ElprisTool,
     showOnHome: true,
   },
+  {
+    slug: "bolanekalkylator",
+    name: "Bolånekalkylator",
+    shortDescription:
+      "Räkna ut din månadskostnad för bolån baserat på ränta, amorteringstid och lånebelopp. Snabb och tydlig kalkyl.",
+    category: "ekonomi",
+    component: BolanekalkylatorTool,
+    showOnHome: true,
+  }  
   
   /* -----------------------------------------------
      🟧 KONVERTERING
