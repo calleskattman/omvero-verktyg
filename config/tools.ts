@@ -1,33 +1,56 @@
 // config/tools.ts
 import type { ComponentType } from "react";
 
+/* -------------------------------------------------
+   📁 IMPORTS – sorterade per kategori
+-------------------------------------------------- */
+
+// 🟦 HÄLSA
 import BmiTool from "@/components/tools/BmiTool";
 import CalorieTool from "@/components/tools/CalorieTool";
-import RotTool from "@/components/tools/RotTool";
+import BmrTool from "@/components/tools/BmrTool";
+import PromilleTool from "@/components/tools/PromilleTool";
 
-/**
- * Tillåtna kategorier för verktyg.
- * Dessa används för SEO, filtrering och kategorisidor.
- */
+// 🟩 EKONOMI
+import RotTool from "@/components/tools/RotTool";
+import RutTool from "@/components/tools/RutTool";
+import MomsTool from "@/components/tools/MomsTool";
+import RantaPaRantaTool from "@/components/tools/RantaPaRantaTool";
+import ElprisTool from "@/components/tools/ElprisTool";
+
+
+// 🟧 KONVERTERING → (kommer senare)
+// import SomethingTool from "@/components/tools/...";
+
+// 🟪 ÖVRIGT → (kommer senare)
+// import SomethingTool from "@/components/tools/...";
+
+
+/* -------------------------------------------------
+   📌 TYPER
+-------------------------------------------------- */
+
 export type ToolCategory = "halsa" | "ekonomi" | "konvertering" | "ovrigt";
 
-/**
- * Struktur för varje verktyg på Omvero.
- */
 export type Tool = {
-  slug: string;                // används i URL, t.ex. /bmi-raknare
-  name: string;                // visat namn
-  shortDescription: string;    // kort beskrivning till listor/kort
-  category: ToolCategory;      // halsa | ekonomi | konvertering | ovrigt
-  component: ComponentType;    // React-komponent för själva verktyget
-  showOnHome?: boolean;        // om den ska visas i "utvalda" på startsidan
+  slug: string;
+  name: string;
+  shortDescription: string;
+  category: ToolCategory;
+  component: ComponentType;
+  showOnHome?: boolean;
 };
 
-/**
- * Lista med alla verktyg på Omvero.
- * Lägg till nya verktyg genom att skapa en komponent och registrera den här.
- */
+
+/* -------------------------------------------------
+   🗂️ VERKTYGSREGISTER – sorterat per kategori
+-------------------------------------------------- */
+
 export const tools: Tool[] = [
+
+  /* -----------------------------------------------
+     🟦 HÄLSA
+  -------------------------------------------------- */
   {
     slug: "bmi-raknare",
     name: "BMI-räknare",
@@ -46,6 +69,28 @@ export const tools: Tool[] = [
     showOnHome: true,
   },
   {
+    slug: "bmr-raknare",
+    name: "BMR-räknare",
+    shortDescription:
+      "Beräkna din basalmetabolism (BMR) baserat på kön, ålder, vikt och längd.",
+    category: "halsa",
+    component: BmrTool,
+    showOnHome: true,
+  },
+  {
+    slug: "promillekalkylator",
+    name: "Promillekalkylator",
+    shortDescription:
+      "Beräkna en uppskattad promillehalt baserat på vikt, tid och vad du har druckit.",
+    category: "halsa",
+    component: PromilleTool,
+    showOnHome: true,
+  },
+
+  /* -----------------------------------------------
+     🟩 EKONOMI
+  -------------------------------------------------- */
+  {
     slug: "rot-kalkylator",
     name: "ROT-kalkylator",
     shortDescription: "Räkna ut ROT-avdrag och vad du faktiskt betalar.",
@@ -53,14 +98,51 @@ export const tools: Tool[] = [
     component: RotTool,
     showOnHome: true,
   },
+  {
+    slug: "rut-kalkylator",
+    name: "RUT-kalkylator",
+    shortDescription:
+      "Räkna ut RUT-avdrag och se kundens slutpris efter avdrag.",
+    category: "ekonomi",
+    component: RutTool,
+    showOnHome: true,
+  },
+  {
+    slug: "momsraknare",
+    name: "Momsräknare",
+    shortDescription:
+      "Räkna ut pris med och utan moms och se momsbeloppet baserat på svenska momssatser.",
+    category: "ekonomi",
+    component: MomsTool,
+    showOnHome: true,
+  },
+  {
+    slug: "ranta-pa-ranta-kalkylator",
+    name: "Ränta-på-ränta kalkylator",
+    shortDescription:
+      "Räkna ut hur ditt sparande växer över tid med ränta på ränta och månadssparande.",
+    category: "ekonomi",
+    component: RantaPaRantaTool,
+    showOnHome: true,
+  },
+  {
+    slug: "elpris-idag",
+    name: "Elpris idag",
+    shortDescription:
+      "Se dagens elpris per kWh för ditt elområde baserat på aktuella spotpriser.",
+    category: "ekonomi",
+    component: ElprisTool,
+    showOnHome: true,
+  },
+  
+  /* -----------------------------------------------
+     🟧 KONVERTERING
+     (tom – vi fyller på när du bygger nästa kategori)
+  -------------------------------------------------- */
 
-  // --- Fler verktyg läggs till här ---
-  // {
-  //   slug: "nytt-verktyg",
-  //   name: "Namn på verktyget",
-  //   shortDescription: "Kort beskrivning av verktyget.",
-  //   category: "konvertering", // eller annan kategori
-  //   component: NewToolComponent,
-  //   showOnHome: false,
-  // },
+  /* -----------------------------------------------
+     🟪 ÖVRIGT
+     (tom – framtida verktyg)
+  -------------------------------------------------- */
+
 ];
