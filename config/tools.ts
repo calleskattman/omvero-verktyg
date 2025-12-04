@@ -18,6 +18,8 @@ import MomsTool from "@/components/tools/MomsTool";
 import RantaPaRantaTool from "@/components/tools/RantaPaRantaTool";
 import ElprisTool from "@/components/tools/ElprisTool";
 import { BolanekalkylatorTool } from "@/components/tools/BolanekalkylatorTool";
+import AmorteringskalkylatorTool from "@/components/tools/AmorteringskalkylatorTool";
+
 
 
 // 🟧 KONVERTERING → (kommer senare)
@@ -143,7 +145,17 @@ export const tools: Tool[] = [
     category: "ekonomi",
     component: BolanekalkylatorTool,
     showOnHome: true,
-  }  
+  },  
+  {
+    slug: "amorteringskalkylator",
+    name: "Amorteringskalkylator",
+    shortDescription:
+      "Beräkna hur lång tid det tar att betala av ett lån med vald ränta och månadsbetalning.",
+    category: "ekonomi",
+    component: AmorteringskalkylatorTool,
+    showOnHome: true, 
+  },
+  
   
   /* -----------------------------------------------
      🟧 KONVERTERING

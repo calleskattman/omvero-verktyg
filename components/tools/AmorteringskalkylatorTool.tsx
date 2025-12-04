@@ -11,6 +11,22 @@ function formatCurrency(value: number): string {
   );
 }
 
+function formatDuration(months: number): string {
+  if (!isFinite(months) || months <= 0) return "–";
+  const years = Math.floor(months / 12);
+  const restMonths = months % 12;
+
+  if (years === 0) {
+    return `${restMonths} månader`;
+  }
+
+  if (restMonths === 0) {
+    return `${years} år`;
+  }
+
+  return `${years} år och ${restMonths} månader`;
+}
+
 type YearSnapshot = {
   year: number;
   avgMonthlyPayment: number;
@@ -18,77 +34,87 @@ type YearSnapshot = {
   endBalance: number;
 };
 
-export function BolanekalkylatorTool() {
-  const [loanAmount, setLoanAmount] = useState<string>("2500000");
-  const [interestRate, setInterestRate] = useState<string>("4");
-  const [amortizationRate, setAmortizationRate] = useState<string>("2");
-  const [analysisYears, setAnalysisYears] = useState<string>("30");
+export default function AmorteringskalkylatorTool() {
+  const [loanAmount, setLoanAmount] = useState<string>("250000");
+  const [interestRate, setInterestRate] = useState<string>("6");
+  const [monthlyPayment, setMonthlyPayment] = useState<string>("3000");
 
   const principal = Number(loanAmount.replace(/\s/g, "")) || 0;
   const annualInterest = Number(interestRate) || 0;
-  const amortPct = Number(amortizationRate) || 0;
-  const years = Number(analysisYears) || 0;
+  const paymentPerMonth = Number(monthlyPayment.replace(/\s/g, "")) || 0;
 
-  const months = years > 0 ? years * 12 : 0;
   const monthlyRate = annualInterest > 0 ? annualInterest / 100 / 12 : 0;
-  const yearlyAmortisation =
-    principal > 0 && amortPct > 0 ? (principal * amortPct) / 100 : 0;
-  const monthlyAmortisation =
-    yearlyAmortisation > 0 ? yearlyAmortisation / 12 : 0;
 
-  const hasValidInput = principal > 0 && months > 0 && annualInterest >= 0;
+  const hasValidInput = principal > 0 && paymentPerMonth > 0 && annualInterest >= 0;
 
-  let firstMonthPayment = 0;
   let totalInterestPaid = 0;
   let totalPaid = 0;
+  let payoffMonths = 0;
   let endBalance = principal;
+  let neverRepaid = false;
   const yearSnapshots: YearSnapshot[] = [];
 
   if (hasValidInput) {
     let balance = principal;
-    let currentYearPayment = 0;
-    let currentYearInterest = 0;
+    const maxMonths = 100 * 12; // säkerhetsgräns
 
-    for (let month = 1; month <= months && balance > 0; month++) {
-      const interestThisMonth = balance * monthlyRate;
+    // Om räntan är > 0 och betalningen är mindre än första månadsräntan
+    // kommer lånet aldrig att minska.
+    if (monthlyRate > 0 && paymentPerMonth <= balance * monthlyRate + 1e-6) {
+      neverRepaid = true;
+      endBalance = balance;
+    } else {
+      let currentYearPayment = 0;
+      let currentYearInterest = 0;
 
-      // Om amorteringsprocenten är 0 räknar vi det som ett ränte-endast lån.
-      const amortThisMonth =
-        monthlyAmortisation > 0
-          ? Math.min(monthlyAmortisation, balance)
-          : 0;
+      for (let month = 1; month <= maxMonths && balance > 0; month++) {
+        const interestThisMonth = balance * monthlyRate;
+        let amortThisMonth = paymentPerMonth - interestThisMonth;
 
-      const paymentThisMonth = interestThisMonth + amortThisMonth;
+        if (amortThisMonth < 0) {
+          amortThisMonth = 0;
+        }
 
-      if (month === 1) {
-        firstMonthPayment = paymentThisMonth;
-      }
+        // Sista månaden kan vi behöva justera betalningen lite så att saldot går till 0.
+        if (amortThisMonth > balance) {
+          amortThisMonth = balance;
+        }
 
-      totalInterestPaid += interestThisMonth;
-      totalPaid += paymentThisMonth;
-      balance -= amortThisMonth;
+        const paymentThisMonth = interestThisMonth + amortThisMonth;
 
-      currentYearPayment += paymentThisMonth;
-      currentYearInterest += interestThisMonth;
+        totalInterestPaid += interestThisMonth;
+        totalPaid += paymentThisMonth;
+        balance -= amortThisMonth;
 
-      const isYearEnd = month % 12 === 0 || balance <= 0 || month === months;
+        payoffMonths = month;
 
-      if (isYearEnd) {
-        const yearNumber = Math.ceil(month / 12);
-        const monthsInYear = month % 12 === 0 ? 12 : month % 12 || 12;
+        currentYearPayment += paymentThisMonth;
+        currentYearInterest += interestThisMonth;
 
-        yearSnapshots.push({
-          year: yearNumber,
-          avgMonthlyPayment: currentYearPayment / monthsInYear,
-          avgMonthlyInterest: currentYearInterest / monthsInYear,
-          endBalance: balance,
-        });
+        const isYearEnd = month % 12 === 0 || balance <= 0;
 
-        currentYearPayment = 0;
-        currentYearInterest = 0;
+        if (isYearEnd) {
+          const yearNumber = Math.ceil(month / 12);
+          const monthsInYear = month % 12 === 0 ? 12 : month % 12 || 12;
+
+          yearSnapshots.push({
+            year: yearNumber,
+            avgMonthlyPayment: currentYearPayment / monthsInYear,
+            avgMonthlyInterest: currentYearInterest / monthsInYear,
+            endBalance: balance,
+          });
+
+          currentYearPayment = 0;
+          currentYearInterest = 0;
+        }
       }
 
       endBalance = balance;
+
+      // Om vi nådde maxperioden utan att lånet är betalt, markera som "aldrig återbetalt".
+      if (endBalance > 1) {
+        neverRepaid = true;
+      }
     }
   }
 
@@ -113,8 +139,8 @@ export function BolanekalkylatorTool() {
             onChange={(e) => setLoanAmount(e.target.value)}
           />
           <p className="mt-1 text-xs text-slate-500">
-            Ange det totala bolånebeloppet du planerar att ta, efter eventuell
-            kontantinsats.
+            Ange det aktuella lånebeloppet du vill amortera ned, exempelvis ett
+            privatlån eller ett bolån.
           </p>
         </div>
 
@@ -136,64 +162,38 @@ export function BolanekalkylatorTool() {
             onChange={(e) => setInterestRate(e.target.value)}
           />
           <p className="mt-1 text-xs text-slate-500">
-            Använd den nominella årsräntan för ditt bolån, till exempel 4.
+            Använd den nominella årsräntan för lånet, till exempel 6.
           </p>
         </div>
 
         <div>
           <label
-            htmlFor="amortizationRate"
+            htmlFor="monthlyPayment"
             className="block text-sm mb-1 text-slate-800"
           >
-            Amortering (% av lånebelopp per år)
+            Månadsbetalning (kr)
           </label>
           <input
-            id="amortizationRate"
+            id="monthlyPayment"
             type="number"
             min={0}
-            step="0.1"
             inputMode="decimal"
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            value={amortizationRate}
-            onChange={(e) => setAmortizationRate(e.target.value)}
+            value={monthlyPayment}
+            onChange={(e) => setMonthlyPayment(e.target.value)}
           />
           <p className="mt-1 text-xs text-slate-500">
-            Standardkrav är ofta 1–3&nbsp;% per år beroende på belåningsgrad.
-            Välj 0&nbsp;% om du vill räkna på ett lån utan amortering.
-          </p>
-        </div>
-
-        <div>
-          <label
-            htmlFor="analysisYears"
-            className="block text-sm mb-1 text-slate-800"
-          >
-            Beräkningsperiod (år)
-          </label>
-          <input
-            id="analysisYears"
-            type="number"
-            min={1}
-            step={1}
-            inputMode="numeric"
-            className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            value={analysisYears}
-            onChange={(e) => setAnalysisYears(e.target.value)}
-          />
-          <p className="mt-1 text-xs text-slate-500">
-            Hur många år framåt du vill se kostnadsbilden. Vanligt är att räkna
-            på 10–30 år.
+            Ange hur mycket du planerar att betala per månad. Kalkylatorn
+            beräknar hur lång tid det tar innan lånet är återbetalt.
           </p>
         </div>
 
         <div className="rounded-md border border-slate-200 bg-slate-50 p-3">
           <p className="text-xs text-slate-600">
-            Kalkylen använder{" "}
-            <span className="font-medium">rak amortering</span>, där du betalar
-            samma amorteringsbelopp varje månad och räntan minskar när skulden
-            blir lägre. Resultaten är förenklade och tar inte hänsyn till
-            framtida ränteförändringar, amorteringskrav eller individuella
-            bankvillkor.
+            Kalkylen utgår från att räntan är oförändrad över tiden och att du
+            betalar samma belopp varje månad tills lånet är återbetalt. Resultatet
+            är förenklat och tar inte hänsyn till avgifter eller ändrade
+            lånevillkor.
           </p>
         </div>
       </div>
@@ -201,52 +201,61 @@ export function BolanekalkylatorTool() {
       {/* Resultatkolumn */}
       <div className="rounded-lg border border-slate-200 bg-white p-4 md:p-6 space-y-4">
         <h3 className="text-lg font-semibold text-slate-900">
-          Sammanfattning av ditt bolån
+          Sammanfattning av din amortering
         </h3>
 
         {!hasValidInput ? (
           <p className="text-sm text-slate-600">
-            Fyll i lånebelopp, ränta, amortering och beräkningsperiod för att
-            se månadskostnad, total räntekostnad och kvarvarande skuld.
+            Fyll i lånebelopp, ränta och månadsbetalning för att se ungefär hur
+            lång tid det tar att betala av lånet, samt hur mycket du betalar i
+            ränta totalt.
           </p>
+        ) : neverRepaid ? (
+          <>
+            <p className="text-sm text-slate-700">
+              Med de värden du har angett räcker inte månadsbetalningen för att
+              lånet ska bli helt återbetalt.
+            </p>
+            <p className="text-sm text-slate-600">
+              Höj månadsbeloppet eller sänk räntan för att amorteringen ska
+              överstiga den månatliga räntekostnaden. Annars riskerar skulden att
+              ligga kvar eller till och med öka över tid.
+            </p>
+          </>
         ) : (
           <>
             <div>
               <p className="text-sm text-slate-600">
-                Beräknad månadskostnad första månaden
+                Beräknad återbetalningstid
               </p>
-              <p className="text-3xl font-bold text-slate-900">
-                {formatCurrency(firstMonthPayment)}
+              <p className="text-2xl md:text-3xl font-bold text-slate-900">
+                {formatDuration(payoffMonths)}
               </p>
               <p className="mt-1 text-xs text-slate-600">
-                Detta är din ungefärliga första månads kostnad, inklusive både
-                ränta och amortering med de villkor du har angett.
+                Så lång tid tar det ungefär att betala av hela lånet med den
+                månadsbetalning du har angett, givet oförändrad ränta.
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
               <div className="space-y-1">
-                <p className="text-slate-600">
-                  Total räntekostnad under perioden
-                </p>
+                <p className="text-slate-600">Total räntekostnad</p>
                 <p className="font-semibold text-slate-900">
                   {formatCurrency(totalInterestPaid)}
                 </p>
                 <p className="text-xs text-slate-500">
-                  Summan av alla räntebetalningar under
-                  {" " + years} år, givet oförändrad ränta.
+                  Summan av all ränta du betalar under hela perioden tills
+                  skulden är noll.
                 </p>
               </div>
               <div className="space-y-1">
-                <p className="text-slate-600">
-                  Total betalning under perioden
-                </p>
+                <p className="text-slate-600">Totalt betalat</p>
                 <p className="font-semibold text-slate-900">
                   {formatCurrency(totalPaid)}
                 </p>
                 <p className="text-xs text-slate-500">
-                  Inkluderar både amortering och ränta under den valda
-                  beräkningsperioden.
+                  Inkluderar både amortering och ränta fram till att lånet är
+                  återbetalt.
                 </p>
               </div>
             </div>
@@ -268,18 +277,9 @@ export function BolanekalkylatorTool() {
                 </span>
               </p>
               <p>
-                Amortering:{" "}
+                Månadsbetalning:{" "}
                 <span className="font-medium">
-                  {amortPct.toLocaleString("sv-SE", {
-                    maximumFractionDigits: 2,
-                  })}
-                  {" % av lånebelopp per år"}
-                </span>
-              </p>
-              <p>
-                Kvarvarande skuld efter {years} år:{" "}
-                <span className="font-medium">
-                  {formatCurrency(Math.max(endBalance, 0))}
+                  {formatCurrency(paymentPerMonth)}
                 </span>
               </p>
             </div>
@@ -335,11 +335,10 @@ export function BolanekalkylatorTool() {
 
             <div className="rounded-md border border-amber-100 bg-amber-50 p-3">
               <p className="text-xs text-amber-900">
-                Kom ihåg att detta är en förenklad kalkyl. Verklig
-                månadskostnad påverkas av ränteförändringar, amorteringskrav,
-                avgifter och andra villkor från banken. Kontakta din bank eller
-                en oberoende rådgivare för personlig rådgivning innan du fattar
-                beslut.
+                Resultaten är förenklade och ska ses som en vägledning. Verklig
+                återbetalningstid påverkas av ränteförändringar, amorteringskrav,
+                avgifter och andra villkor i ditt låneavtal. Kontakta din bank
+                eller en oberoende rådgivare för personlig rådgivning.
               </p>
             </div>
           </>

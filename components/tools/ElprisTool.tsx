@@ -308,6 +308,7 @@ export default function ElprisTool() {
                     />
                     <YAxis hide domain={["auto", "auto"]} />
                     <Tooltip
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       formatter={(v: any) => [
                         `${Number(v).toFixed(1)} öre/kWh`,
                         "Elpris",

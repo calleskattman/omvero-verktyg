@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { ToolLayout } from "@/components/ToolLayout";
+import AmorteringskalkylatorTool from "@/components/tools/AmorteringskalkylatorTool";
 
 export const metadata: Metadata = {
   title: "Amorteringskalkylator – räkna ut amortering på lån",
@@ -135,23 +136,7 @@ export default function AmorteringskalkylatorPage() {
               Amorteringskalkylator – beräkning av amortering
             </h2>
 
-            <div className="rounded-lg border border-slate-200 bg-white p-4 md:p-6">
-              <h3 className="text-lg font-semibold text-slate-900">
-                Amorteringskalkylatorn kommer snart
-              </h3>
-              <p className="mt-2 text-sm text-slate-700">
-                Snart kan du använda vår amorteringskalkylator för att räkna ut
-                hur mycket du amorterar varje månad och hur snabbt ditt lån
-                minskar. Verktyget kommer att hjälpa dig att få en tydligare
-                bild av både månadskostnad och återbetalningstid.
-              </p>
-              <p className="mt-2 text-sm text-slate-700">
-                Du kommer att kunna ange lånebelopp, ränta och amorteringstid
-                och få en uppskattning av hur mycket som går till ränta och hur
-                mycket som går till amortering varje månad. Tills dess kan du
-                läsa mer nedan om hur amortering fungerar i praktiken.
-              </p>
-            </div>
+            <AmorteringskalkylatorTool />
           </section>
 
           {/* Hur fungerar amorteringskalkylatorn? */}
