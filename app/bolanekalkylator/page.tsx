@@ -409,7 +409,7 @@ export default function BolanekalkylatorPage() {
               också använda vår{" "}
               <a
                 href="/amorteringskalkylator"
-                className="text-blue-700 underline hover:text-blue-800"
+                className="text-blue-800 underline hover:text-blue-900"
               >
                 amorteringskalkylator
               </a>{" "}
@@ -417,14 +417,14 @@ export default function BolanekalkylatorPage() {
               månadsbetalning. Du kan även testa{" "}
               <a
                 href="/ranta-pa-ranta-kalkylator"
-                className="text-blue-700 underline hover:text-blue-800"
+                className="text-blue-800 underline hover:text-blue-900"
               >
                 ränta-på-ränta kalkylatorn
               </a>{" "}
               för att se hur ditt sparande kan växa över tid, eller fler{" "}
               <a
                 href="/verktyg/ekonomi"
-                className="text-blue-700 underline hover:text-blue-800"
+                className="text-blue-800 underline hover:text-blue-900"
               >
                 ekonomiska verktyg
               </a>{" "}

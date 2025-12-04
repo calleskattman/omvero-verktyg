@@ -289,7 +289,7 @@ export default function RutKalkylatorPage() {
               testa vår{" "}
               <a
                 href="/rot-kalkylator"
-                className="text-blue-700 hover:underline"
+                className="text-blue-800 underline hover:text-blue-900"
               >
                 ROT-avdrag kalkylator
               </a>{" "}
@@ -297,21 +297,21 @@ export default function RutKalkylatorPage() {
               privatekonomi kan du använda{" "}
               <a
                 href="/bolanekalkylator"
-                className="text-blue-700 hover:underline"
+                className="text-blue-800 underline hover:text-blue-900"
               >
                 bolånekalkylatorn
               </a>{" "}
               och fler{" "}
               <a
                 href="/verktyg/ekonomi"
-                className="text-blue-700 hover:underline"
+                className="text-blue-800 underline hover:text-blue-900"
               >
                 ekonomiska verktyg
               </a>{" "}
               på Omvero, till exempel{" "}
               <a
                 href="/momsraknare"
-                className="text-blue-700 hover:underline"
+                className="text-blue-800 underline hover:text-blue-900"
               >
                 momsräknare
               </a>{" "}

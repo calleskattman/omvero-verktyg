@@ -311,14 +311,14 @@ export default function ValutakonverterarePage() {
               För fler smarta omvandlingar kan du använda vår{" "}
               <a
                 href="/km-till-miles-kalkylator"
-                className="text-blue-700 hover:underline"
+                className="text-blue-800 underline hover:text-blue-900"
               >
                 km till miles-kalkylator
               </a>{" "}
               för att konvertera avstånd, eller utforska fler{" "}
               <a
                 href="/verktyg/konvertering"
-                className="text-blue-700 hover:underline"
+                className="text-blue-800 underline hover:text-blue-900"
               >
                 verktyg för konvertering
               </a>{" "}
@@ -326,7 +326,7 @@ export default function ValutakonverterarePage() {
               testa våra{" "}
               <a
                 href="/verktyg/ekonomi"
-                className="text-blue-700 hover:underline"
+                className="text-blue-800 underline hover:text-blue-900"
               >
                 ekonomiska kalkylatorer
               </a>{" "}
