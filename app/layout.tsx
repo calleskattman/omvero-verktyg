@@ -13,33 +13,29 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://omvero.se"),
   title: {
     default: "Omvero – Smarta kalkylatorer online",
     template: "%s | Omvero – Smarta kalkylatorer online",
   },
   description:
     "Omvero erbjuder smarta, snabba och gratis kalkylatorer online för vardag, hälsa och ekonomi. Mobilanpassade och enkla att använda.",
-  alternates: {
-    canonical: "/", // Hem-sidan. Undersidor sätter egen canonical i sin metadata.
-  },
   openGraph: {
-    type: "website",
-    url: "/",
-    siteName: "Omvero",
     title: "Omvero – Smarta kalkylatorer online",
     description:
       "Omvero erbjuder smarta, snabba och gratis kalkylatorer online för vardag, hälsa och ekonomi. Mobilanpassade och enkla att använda.",
+    url: "https://omvero.se",
+    siteName: "Omvero",
+    type: "website",
+    locale: "sv_SE",
   },
   twitter: {
     card: "summary_large_image",
     title: "Omvero – Smarta kalkylatorer online",
     description:
-      "Omvero erbjuder smarta, snabba och gratis kalkylatorer online för vardag, hälsa och ekonomi. Mobilanpassade och enkla att använda.",
+      "Smarta, snabba och gratis kalkylatorer online för vardag, hälsa och ekonomi.",
   },
 };
 
-// Structured data – statiskt för hela sajten
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -88,6 +84,9 @@ export default function RootLayout({
   return (
     <html lang="sv">
       <head>
+        {/* Canonical URL för startsidan */}
+        <link rel="canonical" href="https://omvero.se" />
+
         {/* Favicons & Icons */}
         <link
           rel="icon"
@@ -101,7 +100,11 @@ export default function RootLayout({
           sizes="32x32"
           type="image/png"
         />
-        <link rel="icon" href="/branding/favicon-48x48.ico" sizes="48x48" />
+        <link
+          rel="icon"
+          href="/branding/favicon-48x48.ico"
+          sizes="48x48"
+        />
         <link
           rel="apple-touch-icon"
           href="/branding/apple-touch-icon.png"
@@ -125,6 +128,7 @@ export default function RootLayout({
           id="ga-gtag-src"
           src="https://www.googletagmanager.com/gtag/js?id=G-9VGD9WJJ1H"
           strategy="afterInteractive"
+          async
         />
         <Script
           id="ga-gtag-config"
@@ -151,7 +155,7 @@ export default function RootLayout({
           }}
         />
 
-        {/* Structured Data – Breadcrumbs (grundnivå Hem > Verktyg) */}
+        {/* Structured Data – Breadcrumbs (grundnivå Hem → Verktyg) */}
         <Script
           id="breadcrumbs-schema"
           type="application/ld+json"
@@ -186,7 +190,6 @@ export default function RootLayout({
                   width={160}
                   height={40}
                   priority
-                  className="h-9 w-auto"
                 />
                 <span className="sr-only">Omvero</span>
               </Link>
@@ -209,16 +212,44 @@ export default function RootLayout({
 
           {/* FOOTER */}
           <footer className="border-t border-[var(--border-subtle)] bg-white">
-            <div className="max-w-5xl mx-auto px-4 py-5 text-xs text-slate-500 flex flex-col gap-1 md:flex-row md:items-center md:justify-between">
-              <span>
-                © {new Date().getFullYear()} Omvero. Alla rättigheter
-                förbehållna.
+            <div className="max-w-5xl mx-auto px-4 py-4 text-xs text-slate-500 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+              <span>© Omvero.</span>
+              <span className="max-w-xl">
+                Beräkningar är förenklade och vägledande – kontrollera alltid
+                resultat och aktuella regler innan du fattar beslut.
               </span>
-              <span>
-                Omvero är en oberoende tjänst. Beräkningarna är förenklade och
-                vägledande – kontrollera alltid resultat och aktuella regler
-                innan du fattar ekonomiska beslut.
-              </span>
+              <nav className="flex flex-wrap gap-3">
+                <Link
+                  href="/om"
+                  className="hover:text-slate-700 underline-offset-2 hover:underline"
+                >
+                  Om Omvero
+                </Link>
+                <Link
+                  href="/kontakt"
+                  className="hover:text-slate-700 underline-offset-2 hover:underline"
+                >
+                  Kontakt
+                </Link>
+                <Link
+                  href="/integritetspolicy"
+                  className="hover:text-slate-700 underline-offset-2 hover:underline"
+                >
+                  Integritetspolicy
+                </Link>
+                <Link
+                  href="/cookies"
+                  className="hover:text-slate-700 underline-offset-2 hover:underline"
+                >
+                  Cookies
+                </Link>
+                <Link
+                  href="/villkor"
+                  className="hover:text-slate-700 underline-offset-2 hover:underline"
+                >
+                  Användarvillkor
+                </Link>
+              </nav>
             </div>
           </footer>
         </div>
