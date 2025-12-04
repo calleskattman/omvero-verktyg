@@ -20,51 +20,51 @@ export const metadata: Metadata = {
     "Omvero erbjuder smarta, snabba och gratis kalkylatorer online för vardag, hälsa och ekonomi. Mobilanpassade och enkla att använda.",
 };
 
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Omvero – Smarta kalkylatorer online",
+  url: "https://omvero.se",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: "https://omvero.se/verktyg?q={search_term_string}",
+    "query-input": "required name=search_term_string",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Hem",
+      item: "https://omvero.se",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Verktyg",
+      item: "https://omvero.se/verktyg",
+    },
+  ],
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Omvero",
+  alternateName: "Omvero – Smarta kalkylatorer online",
+  url: "https://omvero.se",
+  logo: "https://omvero.se/branding/omvero-logo-full.svg",
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Omvero – Smarta kalkylatorer online",
-    url: "https://omvero.se",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: "https://omvero.se/verktyg?q={search_term_string}",
-      "query-input": "required name=search_term_string",
-    },
-  };
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Hem",
-        item: "https://omvero.se",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Verktyg",
-        item: "https://omvero.se/verktyg",
-      },
-    ],
-  };
-
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Omvero",
-    alternateName: "Omvero – Smarta kalkylatorer online",
-    url: "https://omvero.se",
-    logo: "https://omvero.se/branding/omvero-logo-full.svg",
-  };
-
   return (
     <html lang="sv">
       <head>
@@ -112,6 +112,7 @@ export default function RootLayout({
           id="ga-gtag-src"
           src="https://www.googletagmanager.com/gtag/js?id=G-9VGD9WJJ1H"
           strategy="afterInteractive"
+          async
         />
         <Script
           id="ga-gtag-config"
@@ -172,7 +173,7 @@ export default function RootLayout({
                   alt="Omvero logotyp"
                   width={160}
                   height={40}
-                  className="h-9 w-auto"
+                  priority
                 />
                 <span className="sr-only">Omvero</span>
               </Link>
