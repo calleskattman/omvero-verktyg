@@ -9,6 +9,8 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+  // Hindra font-preload från att blockera rendering (bättre LCP på mobil)
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -71,7 +73,18 @@ export default function RootLayout({
         {/* Canonical URL */}
         <link rel="canonical" href="https://omvero.se" />
 
-        {/* Favicons & Icons – Google Lighthouse Optimized */}
+        {/* Förbered nätverket för GA (minskar blocking) */}
+        <link
+          rel="dns-prefetch"
+          href="https://www.googletagmanager.com"
+        />
+        <link
+          rel="preconnect"
+          href="https://www.googletagmanager.com"
+          crossOrigin="anonymous"
+        />
+
+        {/* Favicons & Icons */}
         <link
           rel="icon"
           href="/branding/favicon-16x16.png"
@@ -107,7 +120,7 @@ export default function RootLayout({
         {/* PWA manifest */}
         <link rel="manifest" href="/branding/site.webmanifest" />
 
-        {/* Google Analytics 4 via next/script */}
+        {/* Google Analytics 4 */}
         <Script
           id="ga-gtag-src"
           src="https://www.googletagmanager.com/gtag/js?id=G-9VGD9WJJ1H"
