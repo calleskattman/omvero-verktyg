@@ -1,6 +1,16 @@
 // app/page.tsx
+import type { Metadata } from "next";
 import Link from "next/link";
 import { tools } from "@/config/tools";
+
+export const metadata: Metadata = {
+  title: "Omvero – Smarta kalkylatorer online",
+  description:
+    "Omvero samlar smarta, snabba och gratis kalkylatorer online för vardag, hälsa och ekonomi. Fungerar direkt i webbläsaren, utan konto.",
+  alternates: {
+    canonical: "https://omvero.se",
+  },
+};
 
 export default function HomePage() {
   const featuredTools = tools.filter((t) => t.showOnHome);

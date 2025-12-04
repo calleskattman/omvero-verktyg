@@ -13,6 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://omvero.se"),
   title: {
     default: "Omvero – Smarta kalkylatorer online",
     template: "%s | Omvero – Smarta kalkylatorer online",
@@ -84,9 +85,6 @@ export default function RootLayout({
   return (
     <html lang="sv">
       <head>
-        {/* Canonical URL för startsidan */}
-        <link rel="canonical" href="https://omvero.se" />
-
         {/* Favicons & Icons */}
         <link
           rel="icon"
