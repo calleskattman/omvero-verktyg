@@ -292,7 +292,7 @@ export default function AmorteringskalkylatorPage() {
               också använda vår{" "}
               <a
                 href="/bolanekalkylator"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 bolånekalkylator
               </a>{" "}
@@ -300,14 +300,14 @@ export default function AmorteringskalkylatorPage() {
               använda{" "}
               <a
                 href="/ranta-pa-ranta-kalkylator"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 ränta-på-ränta kalkylatorn
               </a>{" "}
               för att se hur sparande kan växa över tid, eller utforska fler{" "}
               <a
                 href="/verktyg/ekonomi"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 ekonomiska verktyg
               </a>{" "}

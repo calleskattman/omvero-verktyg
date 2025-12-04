@@ -282,7 +282,7 @@ export default function BmrRaknarePage() {
               kaloribehov kan du testa vår{" "}
               <a
                 href="/kaloriraknare"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 kaloriräknare (TDEE)
               </a>{" "}
@@ -290,7 +290,7 @@ export default function BmrRaknarePage() {
               använda vår{" "}
               <a
                 href="/bmi-raknare"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 BMI-räknare
               </a>{" "}
@@ -298,7 +298,7 @@ export default function BmrRaknarePage() {
               längd, eller utforska fler{" "}
               <a
                 href="/verktyg/halsa"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 verktyg för hälsa
               </a>{" "}

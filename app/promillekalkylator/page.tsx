@@ -292,14 +292,14 @@ export default function PromillekalkylatorPage() {
               Vill du få bättre koll på din hälsa kan du även testa vår{" "}
               <a
                 href="/bmi-raknare"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 BMI-räknare
               </a>{" "}
               och{" "}
               <a
                 href="/kaloriforbrukning" // uppdatera till korrekt slug när MET-kalkylatorn är på plats
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 kaloriförbränningskalkylator
               </a>{" "}
@@ -307,21 +307,21 @@ export default function PromillekalkylatorPage() {
               beslut kring boende kan du också använda vår{" "}
               <a
                 href="/bolanekalkylator"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 bolånekalkylator
               </a>{" "}
               och fler{" "}
               <a
                 href="/verktyg/ekonomi"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 kalkylatorer inom ekonomi
               </a>{" "}
               och{" "}
               <a
                 href="/verktyg/halsa"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 andra verktyg för hälsa
               </a>

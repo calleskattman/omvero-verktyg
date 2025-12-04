@@ -304,35 +304,35 @@ export default function RantaPaRantaKalkylatorPage() {
               Vill du räkna mer på din privatekonomi kan du också testa vår{" "}
               <a
                 href="/bolanekalkylator"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 bolånekalkylator
               </a>{" "}
               och{" "}
               <a
                 href="/amorteringskalkylator"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 amorteringskalkylator
               </a>{" "}
               när den är på plats. Under{" "}
               <a
                 href="/verktyg/ekonomi"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 fler ekonomiska verktyg
               </a>{" "}
               hittar du även{" "}
               <a
                 href="/momsraknare"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 momsräknare
               </a>{" "}
               och{" "}
               <a
                 href="/rut-kalkylator"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 RUT-kalkylator
               </a>{" "}

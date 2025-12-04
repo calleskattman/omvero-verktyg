@@ -284,14 +284,14 @@ export default function KmTillMilesKalkylatorPage() {
               För fler smarta omvandlingar kan du också använda vår{" "}
               <a
                 href="/valutakonverterare"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 valutakonverterare
               </a>{" "}
               för att räkna om mellan olika valutor, eller utforska fler{" "}
               <a
                 href="/verktyg/konvertering"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 konverteringsverktyg
               </a>{" "}
@@ -299,7 +299,7 @@ export default function KmTillMilesKalkylatorPage() {
               testa våra{" "}
               <a
                 href="/verktyg/ekonomi"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 ekonomiska kalkylatorer
               </a>{" "}

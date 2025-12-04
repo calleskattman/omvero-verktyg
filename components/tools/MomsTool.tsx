@@ -79,7 +79,7 @@ export default function MomsTool() {
                 value="inkl"
                 checked={mode === "inkl"}
                 onChange={() => setMode("inkl")}
-                className="h-4 w-4 border-slate-300 text-blue-600 focus:ring-blue-500"
+                className="h-4 w-4 border-slate-300 text-blue-700 focus:ring-blue-500"
               />
               <span>Pris inklusive moms</span>
             </label>
@@ -90,7 +90,7 @@ export default function MomsTool() {
                 value="exkl"
                 checked={mode === "exkl"}
                 onChange={() => setMode("exkl")}
-                className="h-4 w-4 border-slate-300 text-blue-600 focus:ring-blue-500"
+                className="h-4 w-4 border-slate-300 text-blue-700 focus:ring-blue-500"
               />
               <span>Pris exklusive moms</span>
             </label>

@@ -387,7 +387,7 @@ export default function ElprisIdagPage() {
               Vill du räkna mer på din privatekonomi kan du använda vår{" "}
               <a
                 href="/bolanekalkylator"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 bolånekalkylator
               </a>{" "}
@@ -395,7 +395,7 @@ export default function ElprisIdagPage() {
               Du kan också utforska fler{" "}
               <a
                 href="/verktyg/ekonomi"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 ekonomiska verktyg
               </a>{" "}

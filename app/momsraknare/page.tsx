@@ -283,28 +283,28 @@ export default function MomsraknarePage() {
               testa vår{" "}
               <a
                 href="/rot-kalkylator"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 ROT-avdrag kalkylator
               </a>{" "}
               och{" "}
               <a
                 href="/rut-kalkylator"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 RUT-kalkylator
               </a>{" "}
               för att räkna på skattereduktion. Du kan också använda{" "}
               <a
                 href="/bolanekalkylator"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 bolånekalkylatorn
               </a>{" "}
               eller utforska fler{" "}
               <a
                 href="/verktyg/ekonomi"
-                className="text-blue-600 hover:underline"
+                className="text-blue-700 hover:underline"
               >
                 ekonomiska verktyg
               </a>{" "}
