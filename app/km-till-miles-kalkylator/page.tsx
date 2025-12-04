@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { ToolLayout } from "@/components/ToolLayout";
+import KmMilesTool from "@/components/tools/KmMilesTool";
 
 export const metadata: Metadata = {
   title: "Km till miles-kalkylator – konvertera kilometer till miles",
@@ -133,25 +134,7 @@ export default function KmTillMilesKalkylatorPage() {
               Km till miles-kalkylator – konvertering mellan kilometer och miles
             </h2>
 
-            <div className="rounded-lg border border-slate-200 bg-white p-4 md:p-6">
-              <h3 className="text-lg font-semibold text-slate-900">
-                Km till miles-kalkylatorn kommer snart
-              </h3>
-              <p className="mt-2 text-sm text-slate-700">
-                Snart kan du använda vår km till miles-kalkylator för att
-                omvandla sträckor mellan kilometer och miles med ett par
-                knapptryck. Tanken är att du ska kunna skriva in en sträcka i
-                kilometer eller miles och direkt se vad den motsvarar i den
-                andra enheten.
-              </p>
-              <p className="mt-2 text-sm text-slate-700">
-                Verktyget kommer att vara användbart både för dig som reser,
-                tränar löpning eller cykling, och för dig som bara vill
-                förstå avstånd när du läser kartor eller internationella
-                måttangivelser. Nedan kan du redan nu läsa mer om hur
-                omvandlingen mellan kilometer och miles fungerar.
-              </p>
-            </div>
+            <KmMilesTool />
           </section>
 
           {/* Hur fungerar km till miles-kalkylatorn? */}

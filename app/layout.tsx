@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Link from "next/link";
+import Script from "next/script";
+import Image from "next/image";
 import "./globals.css";
 
 const inter = Inter({
@@ -23,6 +25,46 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Omvero – Smarta kalkylatorer online",
+    url: "https://omvero.se",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://omvero.se/verktyg?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Hem",
+        item: "https://omvero.se",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Verktyg",
+        item: "https://omvero.se/verktyg",
+      },
+    ],
+  };
+
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Omvero",
+    alternateName: "Omvero – Smarta kalkylatorer online",
+    url: "https://omvero.se",
+    logo: "https://omvero.se/branding/omvero-logo-full.svg",
+  };
+
   return (
     <html lang="sv">
       <head>
@@ -65,12 +107,15 @@ export default function RootLayout({
         {/* PWA manifest */}
         <link rel="manifest" href="/branding/site.webmanifest" />
 
-        {/* Google Analytics 4 */}
-        <script
-          async
+        {/* Google Analytics 4 via next/script */}
+        <Script
+          id="ga-gtag-src"
           src="https://www.googletagmanager.com/gtag/js?id=G-9VGD9WJJ1H"
-        ></script>
-        <script
+          strategy="afterInteractive"
+        />
+        <Script
+          id="ga-gtag-config"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -84,61 +129,32 @@ export default function RootLayout({
         />
 
         {/* Structured Data – WebSite */}
-        <script
+        <Script
+          id="website-schema"
           type="application/ld+json"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: "Omvero – Smarta kalkylatorer online",
-              url: "https://omvero.se",
-              potentialAction: {
-                "@type": "SearchAction",
-                // Om/när du har sökfunktion kan den ligga på /verktyg
-                target: "https://omvero.se/verktyg?q={search_term_string}",
-                "query-input": "required name=search_term_string",
-              },
-            }),
+            __html: JSON.stringify(websiteSchema),
           }}
         />
 
         {/* Structured Data – Breadcrumbs */}
-        <script
+        <Script
+          id="breadcrumbs-schema"
           type="application/ld+json"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "BreadcrumbList",
-              itemListElement: [
-                {
-                  "@type": "ListItem",
-                  position: 1,
-                  name: "Hem",
-                  item: "https://omvero.se",
-                },
-                {
-                  "@type": "ListItem",
-                  position: 2,
-                  name: "Verktyg",
-                  item: "https://omvero.se/verktyg",
-                },
-              ],
-            }),
+            __html: JSON.stringify(breadcrumbSchema),
           }}
         />
 
         {/* Structured Data – Organization */}
-        <script
+        <Script
+          id="organization-schema"
           type="application/ld+json"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "Omvero",
-              alternateName: "Omvero – Smarta kalkylatorer online",
-              url: "https://omvero.se",
-              logo: "https://omvero.se/branding/omvero-logo-full.svg",
-            }),
+            __html: JSON.stringify(organizationSchema),
           }}
         />
       </head>
@@ -151,9 +167,11 @@ export default function RootLayout({
           <header className="border-b border-[var(--border-subtle)] bg-white">
             <div className="max-w-5xl mx-auto flex items-center justify-between px-4 py-5">
               <Link href="/" className="flex items-center gap-2">
-                <img
+                <Image
                   src="/branding/omvero-logo-full.svg"
                   alt="Omvero logotyp"
+                  width={160}
+                  height={40}
                   className="h-9 w-auto"
                 />
                 <span className="sr-only">Omvero</span>

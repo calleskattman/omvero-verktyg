@@ -25,7 +25,7 @@ import ValutakonverterareTool from "@/components/tools/ValutakonverterareTool";
 
 
 // 🟧 KONVERTERING → (kommer senare)
-// import SomethingTool from "@/components/tools/...";
+import KmMilesTool from "@/components/tools/KmMilesTool";
 
 // 🟪 ÖVRIGT → (kommer senare)
 // import SomethingTool from "@/components/tools/...";
@@ -173,6 +173,14 @@ export const tools: Tool[] = [
      🟧 KONVERTERING
      (tom – vi fyller på när du bygger nästa kategori)
   -------------------------------------------------- */
+  {
+    slug: "km-till-miles-kalkylator",
+    name: "KM till miles-kalkylator",
+    shortDescription: "Konvertera snabbt mellan kilometer och miles åt båda hållen.",
+    category: "konvertering",
+    component: KmMilesTool,
+    showOnHome: true,
+  },
 
   /* -----------------------------------------------
      🟪 ÖVRIGT

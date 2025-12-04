@@ -83,6 +83,7 @@ export default function PromilleTool() {
       initialBac,
       currentBac,
       timeToZeroHours: timeToZero,
+      bacCategory,
     };
   }, [gender, weight, hoursSinceStart, beer33cl, beer50cl, wineGlasses, shots]);
 
@@ -174,8 +175,8 @@ export default function PromilleTool() {
             Drycker du har druckit
           </h3>
           <p className="text-xs text-slate-600">
-            Ange ungefär hur många av varje dryck du har druckit under
-            perioden för att räkna ut promillehalt.
+            Ange ungefär hur många av varje dryck du har druckit under perioden
+            för att räkna ut promillehalt.
           </p>
 
           <div className="space-y-3">
@@ -277,10 +278,10 @@ export default function PromilleTool() {
         </h3>
 
         <p className="text-sm text-slate-600">
-          Beräkningen bygger på Widmarks formel och en schablon för
-          nedbrytning på 0,15 ‰ per timme. Resultatet är endast en
-          uppskattning av din promillehalt och ska inte användas som underlag
-          för att avgöra om du får köra bil.
+          Beräkningen bygger på Widmarks formel och en schablon för nedbrytning
+          på 0,15 ‰ per timme. Resultatet är endast en uppskattning av din
+          promillehalt och ska inte användas som underlag för att avgöra om du
+          får köra bil.
         </p>
 
         <div className="space-y-1">
@@ -304,8 +305,8 @@ export default function PromilleTool() {
               {formattedInitialBac} ‰
             </p>
             <p className="text-xs text-slate-500">
-              Uppskattad högsta alkoholpromille innan kroppen började bryta
-              ner alkoholen.
+              Uppskattad högsta alkoholpromille innan kroppen började bryta ner
+              alkoholen.
             </p>
           </div>
 
@@ -315,8 +316,7 @@ export default function PromilleTool() {
             </p>
             <p className="text-base font-semibold">{formattedTimeToZero}</p>
             <p className="text-xs text-slate-500">
-              Baserat på en genomsnittlig nedbrytningstakt på 0,15 ‰ per
-              timme.
+              Baserat på en genomsnittlig nedbrytningstakt på 0,15 ‰ per timme.
             </p>
           </div>
         </div>

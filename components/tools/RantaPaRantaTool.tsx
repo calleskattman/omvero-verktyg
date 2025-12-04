@@ -30,8 +30,7 @@ export default function RantaPaRantaTool() {
       fv = start * Math.pow(1 + monthlyRate, m);
       // Månadssparande med ränta-på-ränta (geometrisk serie)
       if (deposit > 0) {
-        fv +=
-          deposit * ((Math.pow(1 + monthlyRate, m) - 1) / monthlyRate);
+        fv += deposit * ((Math.pow(1 + monthlyRate, m) - 1) / monthlyRate);
       }
     } else if (m > 0 && monthlyRate === 0) {
       // Ingen ränta – bara sparande
@@ -58,12 +57,6 @@ export default function RantaPaRantaTool() {
   const formatCurrency = (value: number) =>
     value.toLocaleString("sv-SE", {
       maximumFractionDigits: 0,
-    });
-
-  const formatCurrencyWithDecimals = (value: number) =>
-    value.toLocaleString("sv-SE", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
     });
 
   const formatPercentOneDecimal = (value: number) =>
