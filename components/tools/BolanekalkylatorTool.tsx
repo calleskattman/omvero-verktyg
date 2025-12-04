@@ -1,6 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+
+type YearSnapshot = {
+  year: number;
+  avgMonthlyPayment: number;
+  avgMonthlyInterest: number;
+  endBalance: number;
+};
 
 function formatCurrency(value: number): string {
   if (!isFinite(value) || value <= 0) return "0 kr";
@@ -11,41 +18,78 @@ function formatCurrency(value: number): string {
   );
 }
 
-type YearSnapshot = {
-  year: number;
-  avgMonthlyPayment: number;
-  avgMonthlyInterest: number;
-  endBalance: number;
-};
-
 export function BolanekalkylatorTool() {
   const [loanAmount, setLoanAmount] = useState<string>("2500000");
   const [interestRate, setInterestRate] = useState<string>("4");
   const [amortizationRate, setAmortizationRate] = useState<string>("2");
   const [analysisYears, setAnalysisYears] = useState<string>("30");
 
-  const principal = Number(loanAmount.replace(/\s/g, "")) || 0;
-  const annualInterest = Number(interestRate) || 0;
-  const amortPct = Number(amortizationRate) || 0;
-  const years = Number(analysisYears) || 0;
+  const {
+    principal,
+    annualInterest,
+    amortPct,
+    years,
+    months,
+    monthlyRate,
+    monthlyAmortisation,
+  } = useMemo(() => {
+    const principalParsed = Number(loanAmount.replace(/\s/g, "")) || 0;
+    const annualInterestParsed =
+      Number(interestRate.replace(",", ".")) || 0;
+    const amortPctParsed =
+      Number(amortizationRate.replace(",", ".")) || 0;
+    const yearsParsed = Number(analysisYears.replace(",", ".")) || 0;
 
-  const months = years > 0 ? years * 12 : 0;
-  const monthlyRate = annualInterest > 0 ? annualInterest / 100 / 12 : 0;
-  const yearlyAmortisation =
-    principal > 0 && amortPct > 0 ? (principal * amortPct) / 100 : 0;
-  const monthlyAmortisation =
-    yearlyAmortisation > 0 ? yearlyAmortisation / 12 : 0;
+    const monthsParsed = yearsParsed > 0 ? yearsParsed * 12 : 0;
+    const monthlyRateParsed =
+      annualInterestParsed > 0 ? annualInterestParsed / 100 / 12 : 0;
 
-  const hasValidInput = principal > 0 && months > 0 && annualInterest >= 0;
+    const yearlyAmort =
+      principalParsed > 0 && amortPctParsed > 0
+        ? (principalParsed * amortPctParsed) / 100
+        : 0;
+    const monthlyAmort =
+      yearlyAmort > 0 ? yearlyAmort / 12 : 0;
 
-  let firstMonthPayment = 0;
-  let totalInterestPaid = 0;
-  let totalPaid = 0;
-  let endBalance = principal;
-  const yearSnapshots: YearSnapshot[] = [];
+    return {
+      principal: principalParsed,
+      annualInterest: annualInterestParsed,
+      amortPct: amortPctParsed,
+      years: yearsParsed,
+      months: monthsParsed,
+      monthlyRate: monthlyRateParsed,
+      monthlyAmortisation: monthlyAmort,
+    };
+  }, [loanAmount, interestRate, amortizationRate, analysisYears]);
 
-  if (hasValidInput) {
+  const {
+    hasValidInput,
+    firstMonthPayment,
+    totalInterestPaid,
+    totalPaid,
+    endBalance,
+    yearSnapshots,
+  } = useMemo(() => {
+    const hasValid =
+      principal > 0 && months > 0 && annualInterest >= 0;
+
+    if (!hasValid) {
+      return {
+        hasValidInput: false,
+        firstMonthPayment: 0,
+        totalInterestPaid: 0,
+        totalPaid: 0,
+        endBalance: principal,
+        yearSnapshots: [] as YearSnapshot[],
+      };
+    }
+
     let balance = principal;
+    let firstPayment = 0;
+    let totalInterest = 0;
+    let total = 0;
+    const snapshots: YearSnapshot[] = [];
+
     let currentYearPayment = 0;
     let currentYearInterest = 0;
 
@@ -61,23 +105,25 @@ export function BolanekalkylatorTool() {
       const paymentThisMonth = interestThisMonth + amortThisMonth;
 
       if (month === 1) {
-        firstMonthPayment = paymentThisMonth;
+        firstPayment = paymentThisMonth;
       }
 
-      totalInterestPaid += interestThisMonth;
-      totalPaid += paymentThisMonth;
+      totalInterest += interestThisMonth;
+      total += paymentThisMonth;
       balance -= amortThisMonth;
 
       currentYearPayment += paymentThisMonth;
       currentYearInterest += interestThisMonth;
 
-      const isYearEnd = month % 12 === 0 || balance <= 0 || month === months;
+      const isYearEnd =
+        month % 12 === 0 || balance <= 0 || month === months;
 
       if (isYearEnd) {
         const yearNumber = Math.ceil(month / 12);
-        const monthsInYear = month % 12 === 0 ? 12 : month % 12 || 12;
+        const monthsInYear =
+          month % 12 === 0 ? 12 : month % 12 || 12;
 
-        yearSnapshots.push({
+        snapshots.push({
           year: yearNumber,
           avgMonthlyPayment: currentYearPayment / monthsInYear,
           avgMonthlyInterest: currentYearInterest / monthsInYear,
@@ -87,10 +133,23 @@ export function BolanekalkylatorTool() {
         currentYearPayment = 0;
         currentYearInterest = 0;
       }
-
-      endBalance = balance;
     }
-  }
+
+    return {
+      hasValidInput: true,
+      firstMonthPayment: firstPayment,
+      totalInterestPaid: totalInterest,
+      totalPaid: total,
+      endBalance: balance,
+      yearSnapshots: snapshots,
+    };
+  }, [
+    principal,
+    months,
+    annualInterest,
+    monthlyRate,
+    monthlyAmortisation,
+  ]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -233,8 +292,8 @@ export function BolanekalkylatorTool() {
                   {formatCurrency(totalInterestPaid)}
                 </p>
                 <p className="text-xs text-slate-500">
-                  Summan av alla räntebetalningar under
-                  {" " + years} år, givet oförändrad ränta.
+                  Summan av alla räntebetalningar under{" "}
+                  {years.toLocaleString("sv-SE")} år, givet oförändrad ränta.
                 </p>
               </div>
               <div className="space-y-1">
