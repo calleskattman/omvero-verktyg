@@ -19,6 +19,8 @@ import RantaPaRantaTool from "@/components/tools/RantaPaRantaTool";
 import ElprisTool from "@/components/tools/ElprisTool";
 import { BolanekalkylatorTool } from "@/components/tools/BolanekalkylatorTool";
 import AmorteringskalkylatorTool from "@/components/tools/AmorteringskalkylatorTool";
+import ValutakonverterareTool from "@/components/tools/ValutakonverterareTool";
+
 
 
 
@@ -155,6 +157,16 @@ export const tools: Tool[] = [
     component: AmorteringskalkylatorTool,
     showOnHome: true, 
   },
+  {
+    slug: "valutakonverterare",
+    name: "Valutakonverterare",
+    shortDescription:
+      "Konvertera belopp mellan olika valutor med aktuella växelkurser och växlingsavgift.",
+    category: "ekonomi", // eller "konvertering" om du hellre vill ha den där
+    component: ValutakonverterareTool,
+    showOnHome: true,
+  },
+  
   
   
   /* -----------------------------------------------

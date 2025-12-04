@@ -60,10 +60,21 @@ export default function ElprisTool() {
         const res = await fetch(url, { cache: "no-store" });
 
         if (!res.ok) {
-          throw new Error("Inga prisdata hittades.");
+          // Inga prisdata hittades (t.ex. imorgon innan Nord Pool släppt priserna)
+          console.warn("Inga prisdata hittades för vald dag.");
+          setPrices([]); // töm listan så grafen blir tom
+          setState("error"); // använd den befintliga state-maskinen
+  
+          if (dayType === "tomorrow") {
+            setErrorMessage("Elpriserna för imorgon är inte publicerade ännu.");
+          } else {
+            setErrorMessage("Kunde inte hämta elpriser.");
+          }
+  
+          return; // avbryt funktionen utan att kasta fel
         }
-
-        const data = (await res.json()) as ElprisEntry[];
+  
+        const data = (await res.json()) as ElprisEntry[];  
 
         if (!Array.isArray(data) || data.length === 0) {
           throw new Error("Inga prisdata hittades.");
