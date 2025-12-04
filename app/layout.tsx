@@ -1,3 +1,4 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Link from "next/link";
@@ -9,19 +10,36 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
-  // Hindra font-preload från att blockera rendering (bättre LCP på mobil)
-  preload: false,
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://omvero.se"),
   title: {
     default: "Omvero – Smarta kalkylatorer online",
     template: "%s | Omvero – Smarta kalkylatorer online",
   },
   description:
     "Omvero erbjuder smarta, snabba och gratis kalkylatorer online för vardag, hälsa och ekonomi. Mobilanpassade och enkla att använda.",
+  alternates: {
+    canonical: "/", // Hem-sidan. Undersidor sätter egen canonical i sin metadata.
+  },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Omvero",
+    title: "Omvero – Smarta kalkylatorer online",
+    description:
+      "Omvero erbjuder smarta, snabba och gratis kalkylatorer online för vardag, hälsa och ekonomi. Mobilanpassade och enkla att använda.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Omvero – Smarta kalkylatorer online",
+    description:
+      "Omvero erbjuder smarta, snabba och gratis kalkylatorer online för vardag, hälsa och ekonomi. Mobilanpassade och enkla att använda.",
+  },
 };
 
+// Structured data – statiskt för hela sajten
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -70,20 +88,6 @@ export default function RootLayout({
   return (
     <html lang="sv">
       <head>
-        {/* Canonical URL */}
-        <link rel="canonical" href="https://omvero.se" />
-
-        {/* Förbered nätverket för GA (minskar blocking) */}
-        <link
-          rel="dns-prefetch"
-          href="https://www.googletagmanager.com"
-        />
-        <link
-          rel="preconnect"
-          href="https://www.googletagmanager.com"
-          crossOrigin="anonymous"
-        />
-
         {/* Favicons & Icons */}
         <link
           rel="icon"
@@ -97,11 +101,7 @@ export default function RootLayout({
           sizes="32x32"
           type="image/png"
         />
-        <link
-          rel="icon"
-          href="/branding/favicon-48x48.ico"
-          sizes="48x48"
-        />
+        <link rel="icon" href="/branding/favicon-48x48.ico" sizes="48x48" />
         <link
           rel="apple-touch-icon"
           href="/branding/apple-touch-icon.png"
@@ -125,7 +125,6 @@ export default function RootLayout({
           id="ga-gtag-src"
           src="https://www.googletagmanager.com/gtag/js?id=G-9VGD9WJJ1H"
           strategy="afterInteractive"
-          async
         />
         <Script
           id="ga-gtag-config"
@@ -152,7 +151,7 @@ export default function RootLayout({
           }}
         />
 
-        {/* Structured Data – Breadcrumbs */}
+        {/* Structured Data – Breadcrumbs (grundnivå Hem > Verktyg) */}
         <Script
           id="breadcrumbs-schema"
           type="application/ld+json"
@@ -187,6 +186,7 @@ export default function RootLayout({
                   width={160}
                   height={40}
                   priority
+                  className="h-9 w-auto"
                 />
                 <span className="sr-only">Omvero</span>
               </Link>
@@ -209,11 +209,15 @@ export default function RootLayout({
 
           {/* FOOTER */}
           <footer className="border-t border-[var(--border-subtle)] bg-white">
-            <div className="max-w-5xl mx-auto px-4 py-4 text-xs text-slate-500 flex flex-wrap justify-between gap-2">
-              <span>© Omvero.</span>
+            <div className="max-w-5xl mx-auto px-4 py-5 text-xs text-slate-500 flex flex-col gap-1 md:flex-row md:items-center md:justify-between">
               <span>
-                Beräkningar är förenklade och vägledande – kontrollera alltid
-                resultat och aktuella regler innan du fattar beslut.
+                © {new Date().getFullYear()} Omvero. Alla rättigheter
+                förbehållna.
+              </span>
+              <span>
+                Omvero är en oberoende tjänst. Beräkningarna är förenklade och
+                vägledande – kontrollera alltid resultat och aktuella regler
+                innan du fattar ekonomiska beslut.
               </span>
             </div>
           </footer>
