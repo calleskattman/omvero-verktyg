@@ -117,7 +117,6 @@ export default function BolanekalkylatorPage() {
             <h2 id="bolan-verktyg-rubrik" className="sr-only">
               Bolånekalkylator – beräkning
             </h2>
-            {/* Detta är raden som ska stå där placeholdern låg */}
             <BolanekalkylatorTool />
           </section>
 
@@ -137,8 +136,8 @@ export default function BolanekalkylatorPage() {
               mycket du lånar, vilken ränta du betalar och hur mycket du
               amorterar varje år. Utifrån dessa värden räknar kalkylatorn ut
               både din månadskostnad och hur skulden utvecklas över tid. Det gör
-              det enklare att förstå hur olika räntenivåer och amorteringsnivåer
-              påverkar din privatekonomi.
+              det enklare att förstå hur olika räntenivåer och
+              amorteringsnivåer påverkar din privatekonomi.
             </p>
             <p className="text-sm text-slate-700">
               Modellen använder{" "}
@@ -410,7 +409,7 @@ export default function BolanekalkylatorPage() {
               också använda vår{" "}
               <a
                 href="/amorteringskalkylator"
-                className="text-blue-600 hover:text-blue-700 hover:underline"
+                className="text-blue-700 underline hover:text-blue-800"
               >
                 amorteringskalkylator
               </a>{" "}
@@ -418,14 +417,14 @@ export default function BolanekalkylatorPage() {
               månadsbetalning. Du kan även testa{" "}
               <a
                 href="/ranta-pa-ranta-kalkylator"
-                className="text-blue-600 hover:text-blue-700 hover:underline"
+                className="text-blue-700 underline hover:text-blue-800"
               >
                 ränta-på-ränta kalkylatorn
               </a>{" "}
               för att se hur ditt sparande kan växa över tid, eller fler{" "}
               <a
                 href="/verktyg/ekonomi"
-                className="text-blue-600 hover:text-blue-700 hover:underline"
+                className="text-blue-700 underline hover:text-blue-800"
               >
                 ekonomiska verktyg
               </a>{" "}
